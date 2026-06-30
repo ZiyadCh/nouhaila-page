@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Groupe Scolaire Nouhaila 2</title>
-    <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="index.css">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 </head>
 <body>
@@ -12,9 +12,12 @@
 <!-- NAV -->
 <nav>
   <a href="#home" class="nav-wordmark">
-        <img id="top-logo" src="./nouhaila-logo.jpeg" alt="Groupe Scolaire Nouhaila 2">
+    <img id="top-logo" src="./nouhaila-logo.jpeg" alt="Groupe Scolaire Nouhaila 2">
   </a>
-  <ul class="nav-links">
+  <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
     <li><a href="#about">À Propos</a></li>
     <li><a href="#programs">Niveaux</a></li>
     <li><a href="#campus">Notre École</a></li>
@@ -75,7 +78,9 @@
 <div style="background:var(--offwhite);">
   <div class="section-about">
     <div class="about-img-wrap reveal">
-      <img src="" alt="Élèves à l'école" />
+      <div class="about-visual">
+        <img src="./nouhaila-logo.jpeg" alt="Groupe Scolaire Nouhaila 2" />
+      </div>
       <div class="about-badge">500+ Élèves<br><small>nous font confiance</small></div>
     </div>
     <div class="reveal reveal-delay-2">
@@ -187,17 +192,17 @@
         </div>
       </div>
     </div>
-      <div class="map">
- <iframe
- src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3326.134894201714!2d-7.521209524306039!3d33.52387827336067!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzPCsDMxJzI2LjAiTiA3wrAzMScwNy4xIlc!5e0!3m2!1sen!2sma!4v1782466196771!5m2!1sen!2sma" 
-    width="100%"
-    height="400"
-    style="border: 0; display: block;"
-    allowfullscreen=""
-    loading="lazy"
-    referrerpolicy="no-referrer-when-downgrade">
-  </iframe>
-      </div>
+    <div class="map reveal reveal-delay-2">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3326.134894201714!2d-7.521209524306039!3d33.52387827336067!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzPCsDMxJzI2LjAiTiA3wrAzMScwNy4xIlc!5e0!3m2!1sen!2sma!4v1782466196771!5m2!1sen!2sma"
+        width="100%"
+        height="400"
+        style="border: 0; display: block;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
   </div>
 </section>
 
@@ -227,13 +232,21 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('.form-submit');
-    btn.textContent = '✅  Demande reçue — Nous vous contacterons très bientôt !';
-    btn.style.background = 'linear-gradient(135deg, #2D6A4F, #1a4f3a)';
-    btn.disabled = true;
-  }
+  // mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.classList.toggle('open', isOpen);
+    navToggle.setAttribute('aria-expanded', isOpen);
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
 </script>
 </body>
 </html>
